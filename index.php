@@ -1,10 +1,23 @@
 <?php
+/**
+ * index.php
+ *
+ * 商品検索システムのフロントエンドです。
+ * 以下の3種類の検索モードを切り替えて利用できます:
+ * - 通常検索: JSON内のデータを PHP 側で検索
+ * - 曖昧検索 (LocalAlignment): 局所整列アルゴリズムにより部分一致を判定
+ * - Elasticsearch検索（日本語対応）: Elasticsearch の multi_match クエリを利用して全文検索
+ *
+ * 各モードで、入力された検索ワードは基本的な変換（全角→半角、記号変換など）が実施されます。
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'LocalAlignment.php';
 
 use Elastic\Elasticsearch\ClientBuilder;
 
 // --- ユーティリティ関数 ---
+// sanitize: XSS 対策のため、入力データをエスケープする関数
 function sanitize($data) {
     if (is_array($data)) {
         foreach ($data as $k => $v) {
@@ -15,10 +28,12 @@ function sanitize($data) {
     return htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
 }
 
+// get_wakachi: 複数のスペースを1つのスペースに置換する（単語分割用）
 function get_wakachi($keyword) {
     return preg_replace('/\s+/', ' ', $keyword);
 }
 
+// _get_wakachi: 入力された文字列をスペース区切りでトークン化し、重複を除外する
 function _get_wakachi($word) {
     $wakachi = get_wakachi($word);
     $wakachi_array = explode(" ", $wakachi);
@@ -41,30 +56,29 @@ if ((!isset($_GET['word']) || trim($_GET['word']) === '') && isset($_GET['word_b
     $_GET['word'] = $_GET['word_box'];
 }
 
-// 入力された検索ワードの前処理（基本変換のみ）
+// 入力された検索ワードの前処理（基本変換）
+// mb_convert_kana の 'Krns' オプションで、全角英数字→半角、半角カナ→全角カナ、全角スペース→半角スペース などを行う
 $keyword = isset($_GET['word']) ? trim($_GET['word']) : '';
 if ($keyword !== '') {
-    $keyword = mb_convert_kana($keyword, 'Krn');
+    $keyword = mb_convert_kana($keyword, 'Krns');
     $keyword = str_replace(mb_convert_encoding('―','UTF-8','EUC-JP'), '-', $keyword);
     $keyword = str_replace(mb_convert_encoding('‐','UTF-8','EUC-JP'), '-', $keyword);
-    $keyword = str_replace(mb_convert_encoding('　','UTF-8','EUC-JP'), ' ', $keyword);
     $keyword = str_replace(mb_convert_encoding('Φ','UTF-8','EUC-JP'), mb_convert_encoding('φ','UTF-8','EUC-JP'), $keyword);
 }
 $_GET = sanitize($_GET);
 
-// 検索処理
+// 検索処理の初期化
 $results = [];
 
-// モード切替："normal"（通常検索）、"fuzzy"（LocalAlignment）、"es"（Elasticsearch）
+// モード切替："normal"（通常検索）、"fuzzy"（LocalAlignment）、"es"（Elasticsearch検索）
 $mode = isset($_GET['mode']) ? $_GET['mode'] : 'normal';
 
 if ($keyword !== '') {
     if ($mode === 'es') {
+        // Elasticsearch 検索（日本語対応）
+        // ja_analyzer による正規化・解析が適用されるため、クエリはそのまま送信する
         $client = ClientBuilder::create()->build();
         $indexName = 'products';
-        
-        // Elasticsearch 検索クエリ
-        // 入力はそのまま送信し、ja_analyzer の正規化・変換に任せる
         $params = [
             'index' => $indexName,
             'body'  => [
@@ -77,7 +91,6 @@ if ($keyword !== '') {
                 ]
             ]
         ];
-        
         $response = $client->search($params);
         $results = [];
         if (isset($response['hits']['hits'])) {
@@ -87,9 +100,9 @@ if ($keyword !== '') {
         }
     }
     else if ($mode === 'normal') {
-        // 通常検索（既存の処理）
+        // 通常検索（PHP 内で JSON データから検索）
         $wakachi_tokens = _get_wakachi($keyword);
-        $name = $keyword;
+        $name  = $keyword;
         $name7 = substr($name, 0, 7);
         foreach ($products as $product) {
             $match = false;
@@ -120,13 +133,19 @@ if ($keyword !== '') {
         }
     }
     else if ($mode === 'fuzzy') {
-        // 曖昧検索：LocalAlignment を利用
+        // 曖昧検索（LocalAlignment を利用）
+        // スコア設定は newLocalAlignmentConfig(3, 10, 10, [...]) で調整
         $config = newLocalAlignmentConfig(3, 10, 10, [
             'の' => 100,
             ' '  => 0,
             '・' => 0,
         ]);
-        $thresholdRatio = 0.8;
+        // 閾値を下げて 60% 以上の一致とする（必要に応じて調整）
+        $thresholdRatio = 0.6;
+        
+        // クエリ文字列をスペース区切りで分割し、各トークンに対して局所整列を実施
+        $queryTokens = _get_wakachi($keyword);
+        
         foreach ($products as $product) {
             $match = false;
             $fields = [];
@@ -142,9 +161,18 @@ if ($keyword !== '') {
             if (isset($product['unit_catalog1'])) {
                 $fields[] = $product['unit_catalog1'];
             }
+            // 各フィールドについて、すべてのトークンが一定以上一致しているかを確認
             foreach ($fields as $field) {
-                $aligned = getLocalAlignment($field, $keyword, $config);
-                if (mb_strlen($keyword) > 0 && (mb_strlen($aligned) / mb_strlen($keyword)) >= $thresholdRatio) {
+                $allTokensMatched = true;
+                foreach ($queryTokens as $token) {
+                    $aligned = getLocalAlignment($field, $token, $config);
+                    if (mb_strlen($token) == 0) continue;
+                    if ((mb_strlen($aligned) / mb_strlen($token)) < $thresholdRatio) {
+                        $allTokensMatched = false;
+                        break;
+                    }
+                }
+                if ($allTokensMatched) {
                     $match = true;
                     break;
                 }

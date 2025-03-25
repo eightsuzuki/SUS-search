@@ -1,10 +1,19 @@
 <?php
-// indexer.php
+/**
+ * indexer.php
+ *
+ * Elasticsearch の「products」インデックスを作成し、products.json の商品データを Bulk API で投入するスクリプトです。
+ *
+ * マッピング設定では、日本語向けのカスタムアナライザーを定義しています。
+ * このアナライザーは、ICU Normalizer（nfkc_cf）と ICU Transform（ひらがな→カタカナ変換）を char_filter として使用し、
+ * kuromoji_tokenizer と kuromoji 系フィルターを組み合わせて日本語テキストを正規化・解析します。
+ */
 
 require_once __DIR__ . '/vendor/autoload.php';
 use Elastic\Elasticsearch\ClientBuilder;
 
-$client    = ClientBuilder::create()->build();
+// Elasticsearch クライアントの生成
+$client = ClientBuilder::create()->build();
 $indexName = 'products';
 
 // カスタムマッピング・設定
@@ -12,30 +21,35 @@ $mapping = [
     'settings' => [
         'analysis' => [
             'tokenizer' => [
+                // カスタムトークナイザー：kuromoji_tokenizer を search モードで利用
                 'my_kuro_tk' => [
                     'type' => 'kuromoji_tokenizer',
                     'mode' => 'search'
                 ]
             ],
             'char_filter' => [
-                // ICU Normalizer で正規化（全角→半角、英大→小）
+                // ICU Normalizer：全角文字→半角、英字大文字→小文字などの正規化を実施
                 'icu_normalizer' => [
                     'type' => 'icu_normalizer',
                     'name' => 'nfkc_cf',
                     'mode' => 'compose'
                 ],
+                // kuromoji_iteration_mark：反復記号の展開（例：「々」など）
                 'kuromoji_iteration_mark' => [
                     'type' => 'kuromoji_iteration_mark'
                 ],
+                // html_strip：HTML タグの除去
                 'html_strip' => [
                     'type' => 'html_strip'
                 ]
             ],
             'filter' => [
+                // hiragana_2_katakana：ひらがなをカタカナに変換する ICU Transform
                 'hiragana_2_katakana' => [
                     'type' => 'icu_transform',
                     'id'   => 'Hiragana-Katakana'
                 ],
+                // e_ngram_filter：エッジ NGram フィルター（検索補完等に利用）
                 'e_ngram_filter' => [
                     'type'     => 'edge_ngram',
                     'min_gram' => 1,
@@ -43,6 +57,7 @@ $mapping = [
                 ]
             ],
             'analyzer' => [
+                // my_ja-default_anlz: 日本語のデフォルト解析用アナライザー
                 'my_ja-default_anlz' => [
                     'type'        => 'custom',
                     'tokenizer'   => 'my_kuro_tk',
@@ -56,6 +71,7 @@ $mapping = [
                         'kuromoji_stemmer'
                     ]
                 ],
+                // my_ja-readingform_x_e-ngram_anlz: 読みフィールド用の解析アナライザー（エッジ NGram を利用）
                 'my_ja-readingform_x_e-ngram_anlz' => [
                     'type'        => 'custom',
                     'tokenizer'   => 'my_kuro_tk',
@@ -67,6 +83,7 @@ $mapping = [
                         'e_ngram_filter'
                     ]
                 ],
+                // my_almost_noop: トークン化せず、ひらがな→カタカナ変換のみを行う検索用アナライザー
                 'my_almost_noop' => [
                     'type'      => 'custom',
                     'tokenizer' => 'keyword',
@@ -78,6 +95,7 @@ $mapping = [
     'mappings' => [
         'properties' => [
             'ItemNo' => [ 'type' => 'keyword' ],
+            // name フィールド：デフォルト解析器は my_ja-default_anlz、サブフィールド rf_eng には my_almost_noop を使用
             'name'   => [
                 'type'            => 'text',
                 'analyzer'        => 'my_ja-default_anlz',
@@ -122,7 +140,7 @@ if (!$client->indices()->exists($params)) {
     echo "Index '{$indexName}' already exists.\n";
 }
 
-// products.json からデータ読み込み
+// products.json から商品データを読み込み
 $jsonFile = 'products.json';
 if (!file_exists($jsonFile)) {
     die("File not found: $jsonFile\n");
@@ -130,7 +148,7 @@ if (!file_exists($jsonFile)) {
 $jsonData = file_get_contents($jsonFile);
 $products = json_decode($jsonData, true);
 
-// Bulk API 用パラメータ作成
+// Bulk API 用パラメータ作成：各商品をインデックスに登録
 $bulkParams = ['body' => []];
 foreach ($products as $product) {
     $bulkParams['body'][] = [
