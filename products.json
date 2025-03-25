@@ -1,0 +1,353 @@
+[
+    {
+      "ItemNo": "SFF-202",
+      "name": "SF-20・20 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100010,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-204",
+      "name": "SF-20・20（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100020,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-202B",
+      "name": "SF-20・20 ブラック 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100030,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-204B",
+      "name": "SF-20・20 ブラック（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100040,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E22",
+      "name": "SF-20・20・1F 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100050,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E24",
+      "name": "SF-20・20・1F（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100060,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E22B",
+      "name": "SF-20・20・1F ブラック 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100070,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E24B",
+      "name": "SF-20・20・1F ブラック（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100080,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-F22",
+      "name": "SF-20・20・2F 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100090,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-F24",
+      "name": "SF-20・20・2F（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100100,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-F22B",
+      "name": "SF-20・20・2F ブラック 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100110,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-F24B",
+      "name": "SF-20・20・2F ブラック（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100120,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-FF22",
+      "name": "SF-20・20・3F 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100130,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-FF24",
+      "name": "SF-20・20・3F（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100140,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-FH22",
+      "name": "SF-20・20・2H 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100150,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-FH24",
+      "name": "SF-20・20・2H（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100160,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-242",
+      "name": "SF-20・40 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100170,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-244",
+      "name": "SF-20・40（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100180,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-242B",
+      "name": "SF-20・40 ブラック 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100190,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-244B",
+      "name": "SF-20・40 ブラック（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100200,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E242",
+      "name": "SF-20・40・1F 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100210,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-E244",
+      "name": "SF-20・40・1F（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100220,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-2F2",
+      "name": "SF-20・40・2F 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100230,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-2F4",
+      "name": "SF-20・40・2F（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100240,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-2F2B",
+      "name": "SF-20・40・2F ブラック 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100250,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-2F4B",
+      "name": "SF-20・40・2F ブラック（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100260,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-262",
+      "name": "SF-20・60 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100270,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-264",
+      "name": "SF-20・60（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100280,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-282",
+      "name": "SF-20・80 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100290,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-284",
+      "name": "SF-20・80（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100300,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-G02",
+      "name": "SF-20・40・40 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100310,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-G04",
+      "name": "SF-20・40・40（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100320,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-R52",
+      "name": "SF-20・20・R 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100330,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-R54",
+      "name": "SF-20・20・R（l=50〜4000mm）",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100340,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    },
+    {
+      "ItemNo": "SFF-252",
+      "name": "SF-25・25 定尺(有効長さl=4000mm)",
+      "series": "SF",
+      "type1": "SF20",
+      "type2": "SFフレーム",
+      "disp_order": 1010100350,
+      "specialnote": "",
+      "SuccessorItemNo": ""
+    }
+  ]
+  
